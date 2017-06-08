@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <xs:element name="LIST_OF_TAX_CODES">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="TAX_CODE" maxOccurs="unbounded">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="OPERATING_UNIT">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "20"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="TAX_RATE_CODE">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "50"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="DESCRIPTION" minOccurs="0" maxOccurs="1">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "240"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="PERCENTAGE_RATE" type="xs:double"></xs:element>
+                                             <xs:element name="RATE_EFFECTIVE_FROM" type="xs:date"></xs:element>
+                                             <xs:element name="RATE_EFFECTIVE_TO" minOccurs="0" maxOccurs="1">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "10"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="OFFSET_TAX_FLAG">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "1"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="OFFSET_TAX_RATE_CODE" minOccurs="0" maxOccurs="1">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "50"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="TAX_LIABILITY_ACCOUNT">
+                                                   <xs:simpleType>
+			                               <xs:restriction base="xs:string">
+			                                   <xs:maxLength value = "100"/>
+			                               </xs:restriction>
+                                                   </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="EXTRACTION_DATE" type="xs:dateTime"></xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+</xs:schema>

@@ -1,0 +1,88 @@
+BROKER SCHEMA esb.primark.oracle
+
+/*
+* Filename 	 ESB_PIAT_TAXCODES_CMF_Compute.esql
+* Modulename ESB_PIAT_TAXCODES_CMF_Compute
+* Interfacename PI185 Oracle Tax Codes
+* Date	      ProjectName       	Name		   Version			Description
+* 21/12/2016  Oracle Financials	Indhu Mathy N		0.1 			XML to JSON Transformation in Oracle to PIAT service
+* 30/01/2017  Oracle Financials	Indhu Mathy N		0.2				Updated based on the PIAT Service
+* 28/04/2017  Oracle Financials Vidya R				0.3				#590 FIX - Changed array mapping to direct mapping for DESCRIPTION and OFFSET_TAX_RATE_CODE fields
+																	Added TRIM function for all fields
+*/
+
+DECLARE InterfaceId EXTERNAL CHARACTER '';
+
+
+CREATE COMPUTE MODULE ESB_PIAT_TAXCODES_CMF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		CREATE FIELD OutputRoot.JSON.Data.changes IDENTITY(JSON.Array)changes;
+        DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.changes;
+        DECLARE inputRef REFERENCE TO OutputRoot.XMLNSC.TAX_CODE;
+        CREATE FIRSTCHILD OF outRef AS outRef NAME 'Item' ;
+		SET outRef.operation = 1;
+		SET outRef.keyFields VALUE = null;
+		SET outRef.ID VALUE = null;
+		CREATE FIELD outRef.dataFields;
+		DECLARE outputRef REFERENCE TO outRef.dataFields;
+        		SET outputRef.docid = '0';
+				SET outputRef.operating_unit = TRIM(inputRef.OPERATING_UNIT);
+  				SET outputRef.tax_rate_code = TRIM(inputRef.TAX_RATE_CODE);
+  				SET outputRef.tax_rate_description = NULLIF(TRIM(inputRef.DESCRIPTION),'');	
+   				SET outputRef.percentage_rate = TRIM(inputRef.PERCENTAGE_RATE);
+   				SET outputRef.rate_effective_from = TRIM(inputRef.RATE_EFFECTIVE_FROM) || 'T00:00:00';
+  				SET outputRef.rate_effective_to = CAST(CAST(NULLIF(TRIM(inputRef.RATE_EFFECTIVE_TO),'') AS DATE) AS CHAR FORMAT 'yyyy-MM-dd') || 'T00:00:00';
+            	SET outputRef.offset_tax_flag = TRIM(inputRef.OFFSET_TAX_FLAG);
+            	SET outputRef.offset_tax_rate_code = NULLIF(TRIM(inputRef.OFFSET_TAX_RATE_CODE),'');
+            	SET outputRef.tax_liability_account = TRIM(inputRef.TAX_LIABILITY_ACCOUNT);
+            	SET outputRef.extraction_date = TRIM(inputRef.EXTRACTION_DATE);
+            	SET outputRef.esb_insert_date_time= REPLACE(CAST(CURRENT_TIMESTAMP AS CHAR FORMAT 'yyyy-MM-dd HH:mm:ss') , ' ' , 'T');
+            	SET Environment.Variables.UUID = InputRoot.MQRFH2.usr.UUID;
+   			DELETE FIELD OutputRoot.XMLNSC;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+CREATE COMPUTE MODULE CaptureBusinessData_CMF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		 SET Environment.Variables.BussinessInfo.MessageId = OutputRoot.MQRFH2.usr.UUID;
+		 PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+		 SET Environment.Variables.InterfaceId = InterfaceId;
+		 PROPAGATE TO TERMINAL 'out' DELETE NONE;
+		 RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
