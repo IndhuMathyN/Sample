@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmFileInput.msgnode="ComIbmFileInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:esb_primark_common_audit_AUDITLOGGER_SF.subflow="esb/primark/common/audit/AUDITLOGGER_SF.subflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="SampleFile.msgflow" nsPrefix="SampleFile.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.queueName" name="queueName" defaultValueLiteral="AUDIT_OUT">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.InterfaceName" name="InterfaceName" defaultValueLiteral="SampleInterface">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LoggingType" name="LoggingType" defaultValueLiteral="FILE">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.ProjectName" name="ProjectName" defaultValueLiteral="SampleProject">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.SourceAppln" name="SourceAppln" defaultValueLiteral="SourceApplication">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.TargetAppln" name="TargetAppln" defaultValueLiteral="TargetApplication">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <translation xmi:type="utility:TranslatableString" key="SampleFile" bundleName="SampleFile" pluginId="SampleFlow"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SampleFlow/icons/full/obj16/SampleFile.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SampleFlow/icons/full/obj30/SampleFile.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="142,200" inputDirectory="C:\Users\1259793\Desktop\Sample">
+        <translation xmi:type="utility:ConstantString" string="File Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="301,191" queueName="Qa">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="esb_primark_common_audit_AUDITLOGGER_SF.subflow:FCMComposite_1" xmi:id="FCMComposite_1_3" location="213,279">
+        <translation xmi:type="utility:ConstantString" string="AUDITLOGGER_SF"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.queueName">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.queueName" bundleName="ComIbmMQOutput" pluginId="com.ibm.etools.mft.ibmnodes.definitions"/>
+        <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.InterfaceName">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.InterfaceName" bundleName="esb/primark/common/audit/AUDITLOGGER_SF" pluginId="AUDIT_ERROR_LIB"/>
+          <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.LoggingType">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.LoggingType" bundleName="esb/primark/common/audit/AUDITLOGGER_SF" pluginId="AUDIT_ERROR_LIB"/>
+            <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.ProjectName">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.ProjectName" bundleName="esb/primark/common/audit/AUDITLOGGER_SF" pluginId="AUDIT_ERROR_LIB"/>
+              <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.SourceAppln">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.SourceAppln" bundleName="esb/primark/common/audit/AUDITLOGGER_SF" pluginId="AUDIT_ERROR_LIB"/>
+                <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.TargetAppln">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.TargetAppln" bundleName="esb/primark/common/audit/AUDITLOGGER_SF" pluginId="AUDIT_ERROR_LIB"/>
+                </propertyDescriptor>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <attributeLinks promotedAttribute="Property.queueName" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/queueName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.InterfaceName" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/InterfaceName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LoggingType" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/LoggingType"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.ProjectName" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/ProjectName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.SourceAppln" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/SourceAppln"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.TargetAppln" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="esb/primark/common/audit/AUDITLOGGER_SF.subflow#//FCMComposite_1/TargetAppln"/>
+    </attributeLinks>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

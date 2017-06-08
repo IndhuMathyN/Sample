@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+
+
+    <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+        <xsd:element name="LogMessage">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="LogMessageHeader">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element dfdl:ref="csv:CommaSeparatedFormat" name="MessageType" type="xsd:string">
+                <xsd:annotation/>
+              </xsd:element>
+              <xsd:element name="TimeStamp" type="xsd:string"/>
+              <xsd:element name="GlobalTransactionId" type="xsd:string"/>
+              <xsd:element name="LocalTransactionId" type="xsd:string"/>
+              <xsd:element name="ParentTransactionId" type="xsd:string"/>
+              <xsd:element name="ProjectName" type="xsd:string"/>
+              <xsd:element name="InterfaceName" type="xsd:string"/>
+              <xsd:element name="SourceApp" type="xsd:string"/>
+              <xsd:element name="DestinationApp" type="xsd:string"/>
+              <xsd:element name="ToolName" type="xsd:string"/>
+              <xsd:element name="ToolInfo" type="xsd:string"/>
+              <xsd:element name="ExceptionNumber" type="xsd:string"/>
+              <xsd:element name="Severity" type="xsd:string"/>
+              <xsd:element name="Category" type="xsd:string"/>
+              <xsd:element name="DetailErrorMessage" type="xsd:string"/>
+              <xsd:element name="ErrorSource" type="xsd:string"/>
+              <xsd:element name="MessageStatus" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="LogMessageValues">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="MessageType" type="xsd:string"/>
+              <xsd:element name="TimeStamp" type="xsd:string"/>
+              <xsd:element name="GlobalTransactionId" type="xsd:string"/>
+              <xsd:element name="LocalTransactionId" type="xsd:string"/>
+              <xsd:element name="ParentTransactionId" type="xsd:string"/>
+              <xsd:element name="ProjectName" type="xsd:string"/>
+              <xsd:element name="InterfaceName" type="xsd:string"/>
+              <xsd:element name="SourceApp" type="xsd:string"/>
+              <xsd:element name="DestinationApp" type="xsd:string"/>
+              <xsd:element name="ToolName" type="xsd:string"/>
+              <xsd:element name="ToolInfo" type="xsd:string"/>
+              <xsd:element name="ExceptionNumber" type="xsd:string"/>
+              <xsd:element name="Severity" type="xsd:string"/>
+              <xsd:element name="Category" type="xsd:string"/>
+              <xsd:element name="DetailErrorMessage" type="xsd:string"/>
+              <xsd:element name="ErrorSource" type="xsd:string"/>
+              <xsd:element name="MessageStatus" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+    <xsd:annotation>
+		<xsd:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+
+
+
+</xsd:schema>

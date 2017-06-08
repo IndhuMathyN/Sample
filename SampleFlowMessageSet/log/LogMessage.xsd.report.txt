@@ -1,0 +1,14 @@
+
+
+Importing file: C:\Users\1259793\IBM\IIBT10\workspace\ESB_REUSE_FRMWRK\LogMessage.xsd
+
+BIP0224W The message set has no XML Wire Format layer defined. Only the logical information will appear in the model.
+Changing schema location for import statement "com/ibm/www/dfdl/commaseparatedformat/CommaSeparatedFormat.mxsd".
+
+Elapsed time processing this message definition file: 0.166 seconds
+Number of warnings for this message definition file: 1
+
+
+Number of files processed: 1
+
+
